@@ -1,0 +1,110 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_ITEMS 5
+#define NAME_LENGTH 20
+
+typedef struct {
+    int quantity;
+    float price;
+} Item;
+
+char *items[MAX_ITEMS] = {"Apples", "Maize", "Pineapples", "Milk", "Coconuts"};
+Item inventory[MAX_ITEMS] = {{0, 0.80}, {0, 0.50}, {0, 1.20}, {0, 1.00}, {0, 1.50}};
+
+void addItem() {
+    char name[NAME_LENGTH];
+    int quantity;
+    float price;
+    
+    printf("Enter item name: ");
+    scanf("%s", name);
+    printf("Enter quantity: ");
+    scanf("%d", &quantity);
+    printf("Enter price per unit: ");
+    scanf("%f", &price);
+    
+    for (int i = 0; i < MAX_ITEMS; i++) {
+        if (strcmp(items[i], name) == 0) {
+            inventory[i].quantity += quantity;
+            inventory[i].price = price;
+            printf("Item added successfully!\n");
+            return;
+        }
+    }
+    printf("Item not found!\n");
+}
+
+void displayInventory() {
+    printf("Inventory:\n");
+    for (int i = 0; i < MAX_ITEMS; i++) {
+        if (inventory[i].quantity > 0) {
+            printf("%s (%d) - $%.2f\n", items[i], inventory[i].quantity, inventory[i].quantity * inventory[i].price);
+        }
+    }
+}
+
+void updateItem() {
+    char name[NAME_LENGTH];
+    int quantity;
+    
+    printf("Enter item name to update: ");
+    scanf("%s", name);
+    printf("Enter new quantity: ");
+    scanf("%d", &quantity);
+    
+    for (int i = 0; i < MAX_ITEMS; i++) {
+        if (strcmp(items[i], name) == 0) {
+            inventory[i].quantity = quantity;
+            printf("Item updated successfully!\n");
+            return;
+        }
+    }
+    printf("Item not found!\n");
+}
+
+void calculateTotalValue() {
+    float totalValue = 0.0;
+    
+    for (int i = 0; i < MAX_ITEMS; i++) {
+        totalValue += inventory[i].quantity * inventory[i].price;
+    }
+    
+    printf("Total inventory value: $%.2f\n", totalValue);
+}
+
+int main() {
+    int choice;
+    
+    while (1) {
+        printf("\nEnter your choice:\n");
+        printf("1. Add item\n");
+        printf("2. Display inventory\n");
+        printf("3. Update item\n");
+        printf("4. Calculate total value\n");
+        printf("5. Exit\n");
+        scanf("%d", &choice);
+        
+        switch (choice) {
+            case 1:
+                addItem();
+                break;
+            case 2:
+                displayInventory();
+                break;
+            case 3:
+                updateItem();
+                break;
+            case 4:
+                calculateTotalValue();
+                break;
+            case 5:
+                printf("Exiting...\n");
+                return 0;
+            default:
+                printf("Invalid choice! Please try again.\n");
+        }
+    }
+    
+    return 0;
+}
