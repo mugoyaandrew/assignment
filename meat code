@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+int main(){
+// A one dimension array of 5 types of meat including mutton as strings
+char *meats[5] = {"beef","chicken","mutton","fish","crocodile"};
+
+//A for loop to print the meats in the array and if meat is mutton, print "I love mutton" break else print i eat
+for (int i = 0; i < 5; i++){
+if (meats[i] == "mutton"){
+printf("I hate mutton\n");
+break;
+} else {
+printf("I eat %s\n" , meats[i]);
+}
+}
+// A for loop to print the meats in  the array and if meat is crocodile, print "I love crocodile" and continue
+for (int i = 0; i < 5; i++){
+if (meats[i] == "crocodile"){
+printf("I love crocodile\n");
+continue;
+} else {
+printf("I eat %s\n", meats[i]);
+}
+}
+
+
+return 0;
+
+
+}
